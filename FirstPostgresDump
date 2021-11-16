@@ -1,0 +1,524 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.3
+-- Dumped by pg_dump version 12.3
+
+-- Started on 2021-11-16 10:33:32
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 203 (class 1259 OID 16971)
+-- Name: app_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.app_user (
+    user_id integer NOT NULL,
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    user_password character varying(255) NOT NULL,
+    status character varying(255) DEFAULT NULL::character varying,
+    password_length integer NOT NULL
+);
+
+
+ALTER TABLE public.app_user OWNER TO postgres;
+
+--
+-- TOC entry 208 (class 1259 OID 16997)
+-- Name: app_user_auth_role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.app_user_auth_role (
+    user_id integer NOT NULL,
+    role_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_user_auth_role OWNER TO postgres;
+
+--
+-- TOC entry 207 (class 1259 OID 16995)
+-- Name: app_user_auth_role_role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.app_user_auth_role_role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_user_auth_role_role_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2884 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: app_user_auth_role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.app_user_auth_role_role_id_seq OWNED BY public.app_user_auth_role.role_id;
+
+
+--
+-- TOC entry 206 (class 1259 OID 16993)
+-- Name: app_user_auth_role_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.app_user_auth_role_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_user_auth_role_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2885 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: app_user_auth_role_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.app_user_auth_role_user_id_seq OWNED BY public.app_user_auth_role.user_id;
+
+
+--
+-- TOC entry 202 (class 1259 OID 16969)
+-- Name: app_user_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.app_user_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_user_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2886 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: app_user_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.app_user_user_id_seq OWNED BY public.app_user.user_id;
+
+
+--
+-- TOC entry 205 (class 1259 OID 16982)
+-- Name: auth_role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_role (
+    role_id integer NOT NULL,
+    role_name character varying(255) DEFAULT NULL::character varying,
+    role_description character varying(255) DEFAULT NULL::character varying
+);
+
+
+ALTER TABLE public.auth_role OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 16980)
+-- Name: auth_role_role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_role_role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_role_role_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2887 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: auth_role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_role_role_id_seq OWNED BY public.auth_role.role_id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 17557)
+-- Name: confirmation_token; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.confirmation_token (
+    token_id integer NOT NULL,
+    confirmation_token character varying(255) DEFAULT NULL::character varying,
+    created_date timestamp without time zone,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.confirmation_token OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 17553)
+-- Name: confirmation_token_token_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.confirmation_token_token_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.confirmation_token_token_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2888 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: confirmation_token_token_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.confirmation_token_token_id_seq OWNED BY public.confirmation_token.token_id;
+
+
+--
+-- TOC entry 211 (class 1259 OID 17555)
+-- Name: confirmation_token_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.confirmation_token_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.confirmation_token_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2889 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: confirmation_token_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.confirmation_token_user_id_seq OWNED BY public.confirmation_token.user_id;
+
+
+--
+-- TOC entry 209 (class 1259 OID 17254)
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 23457)
+-- Name: secure_token; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.secure_token (
+    token_id bigint NOT NULL,
+    creation_date timestamp without time zone,
+    expiration_date timestamp without time zone NOT NULL,
+    token character varying(255),
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.secure_token OWNER TO postgres;
+
+--
+-- TOC entry 2717 (class 2604 OID 16974)
+-- Name: app_user user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user ALTER COLUMN user_id SET DEFAULT nextval('public.app_user_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 2722 (class 2604 OID 17000)
+-- Name: app_user_auth_role user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user_auth_role ALTER COLUMN user_id SET DEFAULT nextval('public.app_user_auth_role_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 2723 (class 2604 OID 17001)
+-- Name: app_user_auth_role role_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user_auth_role ALTER COLUMN role_id SET DEFAULT nextval('public.app_user_auth_role_role_id_seq'::regclass);
+
+
+--
+-- TOC entry 2719 (class 2604 OID 16985)
+-- Name: auth_role role_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_role ALTER COLUMN role_id SET DEFAULT nextval('public.auth_role_role_id_seq'::regclass);
+
+
+--
+-- TOC entry 2724 (class 2604 OID 17560)
+-- Name: confirmation_token token_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.confirmation_token ALTER COLUMN token_id SET DEFAULT nextval('public.confirmation_token_token_id_seq'::regclass);
+
+
+--
+-- TOC entry 2726 (class 2604 OID 17562)
+-- Name: confirmation_token user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.confirmation_token ALTER COLUMN user_id SET DEFAULT nextval('public.confirmation_token_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 2868 (class 0 OID 16971)
+-- Dependencies: 203
+-- Data for Name: app_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.app_user (user_id, first_name, last_name, email, user_password, status, password_length) FROM stdin;
+96	Dave	Cave	nitram.reyamrebo@gmx.net	$2a$10$4WNrMvU6aZBVUDrwcimkaOXR2CaI9ixw0GFbUexN/phSgg0pKYqeG	VERIFIED	5
+\.
+
+
+--
+-- TOC entry 2873 (class 0 OID 16997)
+-- Dependencies: 208
+-- Data for Name: app_user_auth_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.app_user_auth_role (user_id, role_id) FROM stdin;
+96	3
+\.
+
+
+--
+-- TOC entry 2870 (class 0 OID 16982)
+-- Dependencies: 205
+-- Data for Name: auth_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_role (role_id, role_name, role_description) FROM stdin;
+1	SUPER_USER	This user has ultimate rights for everything
+2	ADMIN_USER	This user has admin rights for administrative work
+3	APP_USER	This user has access to site, after login - normal user
+\.
+
+
+--
+-- TOC entry 2877 (class 0 OID 17557)
+-- Dependencies: 212
+-- Data for Name: confirmation_token; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.confirmation_token (token_id, confirmation_token, created_date, user_id) FROM stdin;
+70	252c8a51-f61a-4d63-a92d-abd12d53f3a5	2021-01-05 12:06:46.596	96
+\.
+
+
+--
+-- TOC entry 2878 (class 0 OID 23457)
+-- Dependencies: 213
+-- Data for Name: secure_token; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.secure_token (token_id, creation_date, expiration_date, token, user_id) FROM stdin;
+72	2021-01-21 17:35:33.77	2021-01-22 01:35:33.740721	9Pz5nxE2sQdEJGAYvCVW	96
+73	2021-01-21 17:46:46.543	2021-01-22 01:46:46.50514	kjPkFDKiEUQVuIJoEz70	96
+74	2021-01-21 17:48:11.638	2021-01-22 01:48:11.594548	Xo1YoLW5Q8aMTPXU30im	96
+75	2021-01-21 17:48:37.711	2021-01-22 01:48:37.709406	BOZM_1jJ13h44h7iBqCt	96
+76	2021-01-22 14:36:52.378	2021-01-22 22:36:52.330621	OF6crzvco4XnolMLMVSq	96
+\.
+
+
+--
+-- TOC entry 2890 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: app_user_auth_role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.app_user_auth_role_role_id_seq', 1, false);
+
+
+--
+-- TOC entry 2891 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: app_user_auth_role_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.app_user_auth_role_user_id_seq', 1, false);
+
+
+--
+-- TOC entry 2892 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: app_user_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.app_user_user_id_seq', 96, true);
+
+
+--
+-- TOC entry 2893 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: auth_role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_role_role_id_seq', 1, false);
+
+
+--
+-- TOC entry 2894 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: confirmation_token_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.confirmation_token_token_id_seq', 1, false);
+
+
+--
+-- TOC entry 2895 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: confirmation_token_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.confirmation_token_user_id_seq', 1, false);
+
+
+--
+-- TOC entry 2896 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hibernate_sequence', 76, true);
+
+
+--
+-- TOC entry 2732 (class 2606 OID 17003)
+-- Name: app_user_auth_role app_user_auth_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user_auth_role
+    ADD CONSTRAINT app_user_auth_role_pkey PRIMARY KEY (user_id, role_id);
+
+
+--
+-- TOC entry 2728 (class 2606 OID 16979)
+-- Name: app_user app_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user
+    ADD CONSTRAINT app_user_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 2730 (class 2606 OID 16992)
+-- Name: auth_role auth_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_role
+    ADD CONSTRAINT auth_role_pkey PRIMARY KEY (role_id);
+
+
+--
+-- TOC entry 2734 (class 2606 OID 17564)
+-- Name: confirmation_token confirmation_token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.confirmation_token
+    ADD CONSTRAINT confirmation_token_pkey PRIMARY KEY (token_id);
+
+
+--
+-- TOC entry 2736 (class 2606 OID 23461)
+-- Name: secure_token secure_token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.secure_token
+    ADD CONSTRAINT secure_token_pkey PRIMARY KEY (token_id);
+
+
+--
+-- TOC entry 2737 (class 2606 OID 17004)
+-- Name: app_user_auth_role fk_app_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user_auth_role
+    ADD CONSTRAINT fk_app_user FOREIGN KEY (user_id) REFERENCES public.app_user(user_id);
+
+
+--
+-- TOC entry 2739 (class 2606 OID 17565)
+-- Name: confirmation_token fk_app_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.confirmation_token
+    ADD CONSTRAINT fk_app_user FOREIGN KEY (user_id) REFERENCES public.app_user(user_id);
+
+
+--
+-- TOC entry 2738 (class 2606 OID 17009)
+-- Name: app_user_auth_role fk_auth_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.app_user_auth_role
+    ADD CONSTRAINT fk_auth_role FOREIGN KEY (role_id) REFERENCES public.auth_role(role_id);
+
+
+--
+-- TOC entry 2740 (class 2606 OID 23462)
+-- Name: secure_token fkeh62p10xplcohnme79hkl335w; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.secure_token
+    ADD CONSTRAINT fkeh62p10xplcohnme79hkl335w FOREIGN KEY (user_id) REFERENCES public.app_user(user_id);
+
+
+-- Completed on 2021-11-16 10:33:32
+
+--
+-- PostgreSQL database dump complete
+--
+
