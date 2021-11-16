@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 				// URLs matching for access rights
-				.antMatchers("/", "/login", "/resetPassword", "/register").permitAll()
+				.antMatchers("/", "/login", "/resetPassword", "/register", "/confirm").permitAll()
 				// ORDER/SEQUENCE OF ROLES IS IMPORTANT! first comes role with most to role with
 				// least privilege
 //				.antMatchers("/homeUser/**").hasAnyAuthority("SUPER_USER", "ADMIN_USER", "APP_USER")

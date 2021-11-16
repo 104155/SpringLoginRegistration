@@ -42,7 +42,7 @@ public class LoginRegisterController {
 	}
 
 	/*
-	 * 'user' object in parameter list creates a new User object wich is used to
+	 * 'user' object in parameter list creates a new User object which is used to
 	 * bind data from the register form
 	 */
 	@GetMapping("/register")
@@ -72,7 +72,7 @@ public class LoginRegisterController {
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("[RunTrack] Complete Registration!");
             mailMessage.setFrom("nitram.reyamrebo@gmx.net");
-            mailMessage.setText("To confirm your e-mail address, please click/ select and right click/ or copy the link into your browser:\\n"
+            mailMessage.setText("To confirm your e-mail address, please click/ select and right click/ or copy the link into your browser:\n\n"
 					+ appUrl + "/confirm?token=" + confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmailOLD(mailMessage);
@@ -83,7 +83,9 @@ public class LoginRegisterController {
 	}
 	
 	@RequestMapping(value = "/confirm", method = { RequestMethod.GET, RequestMethod.POST })
-	public String confirmEmailAdress(Model model, @RequestParam("token") String confirmationToken) {
+	public String confirmEmailAddress(Model model, @RequestParam("token") String confirmationToken) {
+		
+		//findByConfirmationToken() returns ConfirmationToken
 		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 		
 		if (token != null) {

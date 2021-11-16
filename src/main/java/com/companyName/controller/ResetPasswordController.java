@@ -26,7 +26,8 @@ public class ResetPasswordController {
 
 	@Autowired
 	private DefaultEmailSenderService emailSenderService;
-
+	
+	//SecureToken is for email reset saved into db and accessed when email link is used
 	@Autowired
 	private DefaultSecureTokenService secureToken;
 
@@ -37,7 +38,7 @@ public class ResetPasswordController {
 
 	@PostMapping("/resetPassword")
 	public String validateEmailAdress(@Valid EmailDto emailDto, BindingResult bindingResult, Model model) {
-		// check if email adress is well-formed & not empty
+		// check if email address is well-formed & not empty
 		if (bindingResult.hasErrors()) {
 			return "resetPassword";
 		}
