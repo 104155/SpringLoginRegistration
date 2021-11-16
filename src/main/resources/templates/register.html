@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>SpringLoginRegistration</title>
+<link rel="stylesheet" type="text/css" href="styles/layout.css">
+</head>
+<body>
+	<form action="#" th:action="@{/register}" th:object="${user}"
+		method="post">
+		<h1>Register</h1>
+		<div>
+			<p1 class="errorFont" th:if="${#fields.hasErrors('firstName')}"
+				th:errors="*{firstName}"></p1><br>
+			<p1> <input class="inputBox" type="text" th:field="*{firstName}"
+				placeholder="First name" /> </p1><br>
+				
+			<p1 class="errorFont" th:if="${#fields.hasErrors('lastName')}"
+				th:errors="*{lastName}"></p1><br>
+			<p1> <input class="inputBox" type="text" th:field="*{lastName}"
+				placeholder="Last name" /> </p1><br>
+				
+			<p1 class="errorFont" th:if="${#fields.hasErrors('email')}"
+				th:errors="*{email}"></p1><br>
+			<p1> <input class="inputBox" type="text" th:field="*{email}"
+				placeholder="Email" /> </p1><br>
+				
+			<p1 class="errorFont" th:if="${#fields.hasErrors('password')}"
+				th:errors="*{password}"></p1><br>
+			<p1> <input class="inputBox" type="text" th:field="*{password}"
+				placeholder="Password" /></p1><br> 
+			
+			<a href="/">Cancel</a>
+			<button type="submit">Submit</button>
+			<p class="errorFont" th:text="${message}"></p>
+		</div>
+	</form>
+</body>
+</html>

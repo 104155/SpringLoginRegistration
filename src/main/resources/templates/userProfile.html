@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SpringLoginRegistration</title>
+<link rel="stylesheet" type="text/css" href="/styles/layout.css">
+<link rel="stylesheet" type="text/css" href="/styles/profilePage.css">
+</head>
+<body>
+	<p class="successFont" th:text="${message}"></p>
+	<h1>User Profile</h1>
+	<div class="flex-container">
+		<p th:text="${fullUserName}" class="info"></p>
+		<button onClick="openNamePopup()">Change User Name</button>
+	</div>
+	<div class="popup-background" id="popup-changeName">
+		<div class="popup">
+			<form action"#" th:action="@{/changeName}" th:object="${userDto}"
+				method="post">
+				<h1>Change Your Name:</h1>
+				<p1 class="errorFont" id="errorFirstName"
+					th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p1>
+				<br> <label>First Name:</label><input type="text"
+					th:field="*{firstName}" placeholder="change to" name="firstName"
+					class="inputValue"><br>
+				<p1 class="errorFont" id="errorLastName"
+					th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p1>
+				<br> <label>Last Name:</label><input type="text"
+					th:field="*{lastName}" placeholder="change to" class="inputValue"><br>
+				<button type="submit">Save Changes</button>
+				<button type="submit" formaction="/userProfile" formmethod="get">Cancel</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="flex-container">
+		<p th:text="${emailAddress}" class="info"></p>
+		<button onClick="openEmailPopup()">Change Email Address</button>
+	</div>
+	<div class="popup-background" id="popup-changeEmail">
+		<div class="popup">
+			<form action"#" th:action="@{/changeEmail}" th:object="${userDto}"
+				method="post">
+				<h1>Change Your Email:</h1>
+				<p1 class="errorFont" id="errorPassword"
+					th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p1>
+				<br> <label>Password:</label><input type="text"
+					th:field="*{password}" placeholder="enter your password"
+					class="inputValue"><br>
+				<p1 class="errorFont" id="errorEmail"
+					th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p1>
+				<br> <label>Email Address:</label><input type="text"
+					th:field="*{email}" placeholder="change to" name="email"
+					class="inputValue"><br>
+				<button type="submit">Save Changes</button>
+				<button type="submit" formaction="/userProfile" formmethod="get">Cancel</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="flex-container">
+		<label>Password: <span th:text="${passwordDots}" class="info"></span></label>
+		<button onClick="openPasswordPopup()">Change password</button>
+	</div>
+	<div class="popup-background" id="popup-changePassword">
+		<div class="popup">
+			<form action"#" th:action="@{/changePassword}" th:object="${userDto}"
+				method="post">
+				<h1>Change Your Password:</h1>
+				<p1 class="errorFont" id="errorPassword"
+					th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p1>
+				<br> <label>Password:</label><input type="text"
+					th:field="*{password}" placeholder="enter your password"
+					class="inputValue"><br>
+				<p1 class="errorFont" id="errorNewPassword"
+					th:if="${#fields.hasErrors('newPassword')}"
+					th:errors="*{newPassword}"></p1>
+				<br> <label>New Password:</label><input type="text"
+					th:field="*{newPassword}" placeholder="change to"
+					name="newPassword" class="inputValue"><br>
+				<button type="submit">Save Changes</button>
+				<button type="submit" formaction="/userProfile" formmethod="get">Cancel</button>
+			</form>
+		</div>
+	</div>
+
+	<div>
+		<a href="/homeUser">Back</a>
+	</div>
+	<script src="/scripts/popup-form.js"></script>
+
+	<script th:inline="javascript">
+   		var nameIsActive = [[${popupActiveName}]]; //Your Thymleaf variable
+   		var emailIsActive = [[${popupActiveEmail}]];
+   		var passwordIsActive = [[${popupActivePassword}]];
+
+    	window.onload = function() {
+        	if(nameIsActive) {
+        		openNamePopup(); // Call your favourite method if the variable is true
+    		} else if(emailIsActive) { 
+        		openEmailPopup();
+    		} else if(passwordIsActive) { 
+        		openPasswordPopup();
+    		} else {
+    			closePopups();
+    		}
+    	}
+	</script>
+</body>
+</html>
