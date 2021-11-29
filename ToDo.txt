@@ -4,3 +4,4 @@
 - add remember me function as cookie (expires after a week but is renewed when logged in) delete  when logout.
 - 'back-to-start-page-button' on 'verifiy-your-email-address-page'  
 - 'back-to-start-page-button' on 'your-account-has-been-verified-page'  
+- add login attempt class that locks account
