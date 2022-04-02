@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class ConfirmationToken {
+public class EmailConfirmationToken {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,9 +32,9 @@ public class ConfirmationToken {
 	@JoinColumn(nullable = false, name = "user_id")
 	private User user;
 
-	public ConfirmationToken() {}
+	public EmailConfirmationToken() {}
 	
-	public ConfirmationToken(User user) {
+	public EmailConfirmationToken(User user) {
 		this.user = user;
 		createdDate = new Date();
 		confirmationToken = UUID.randomUUID().toString();

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.companyName.dto.DefaultUserDto;
-import com.companyName.model.ConfirmationToken;
+import com.companyName.model.EmailConfirmationToken;
 import com.companyName.model.User;
-import com.companyName.repository.ConfirmationTokenRepository;
+import com.companyName.repository.EmailConfirmationTokenRepository;
 import com.companyName.repository.UserRepository;
 import com.companyName.service.DefaultEmailSenderService;
 import com.companyName.service.UserInSession;
@@ -35,7 +35,7 @@ public class UserProfileController {
 	private UserService userService;
 
 	@Autowired
-	private ConfirmationTokenRepository confirmationTokenRepository;
+	private EmailConfirmationTokenRepository confirmationTokenRepository;
 
 	@Autowired
 	private DefaultEmailSenderService emailSenderService;
@@ -140,7 +140,7 @@ public class UserProfileController {
 			String currentEmailAddress = userInSession.getUserInSession().getEmail();
 
 			// send email to new email address, create CT for updated UserInSession
-			ConfirmationToken confirmationToken = new ConfirmationToken(userInSession.getUserInSession());
+			EmailConfirmationToken confirmationToken = new EmailConfirmationToken(userInSession.getUserInSession());
 			confirmationTokenRepository.save(confirmationToken);
 
 			String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort();

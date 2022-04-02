@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.companyName.model.ConfirmationToken;
+import com.companyName.model.EmailConfirmationToken;
 import com.companyName.model.User;
-import com.companyName.repository.ConfirmationTokenRepository;
+import com.companyName.repository.EmailConfirmationTokenRepository;
 import com.companyName.repository.UserRepository;
 import com.companyName.service.DefaultEmailSenderService;
 import com.companyName.service.UserService;
@@ -31,7 +31,7 @@ public class LoginRegisterController {
 	private UserService userService;
 	
 	@Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
+    private EmailConfirmationTokenRepository confirmationTokenRepository;
 
     @Autowired
     private DefaultEmailSenderService emailSenderService;
@@ -63,7 +63,7 @@ public class LoginRegisterController {
 		} else {
 			userService.createUser(user);
 			
-            ConfirmationToken confirmationToken = new ConfirmationToken(user);
+            EmailConfirmationToken confirmationToken = new EmailConfirmationToken(user);
             confirmationTokenRepository.save(confirmationToken);
             
             String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort();
@@ -86,7 +86,7 @@ public class LoginRegisterController {
 	public String confirmEmailAddress(Model model, @RequestParam("token") String confirmationToken) {
 		
 		//findByConfirmationToken() returns ConfirmationToken
-		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+		EmailConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 		
 		if (token != null) {
 			//User user = userService.findByEmailIgnoreCase(token.getUser()); //maybe findByUserId not by email
